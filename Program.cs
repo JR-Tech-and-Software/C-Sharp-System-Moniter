@@ -122,23 +122,26 @@ namespace System_Moniter
                 string cpuHundredMessage = CPU_Overload_List[CPU_Overload_Message.Next(6)];
                 #endregion
                 #region speech logic & messaging
+                
+                // If the CPU Load is over or equal to 80%, alert the user
                 if (currentCpuPercentage2 >= 80)
                 {
+                    
+                    // If the CPU Load is 100%, alert the user
                     if (currentCpuPercentage2 == 100)
                     {
                         Talk(cpuHundredMessage, VoiceGender.Female, talkSpeed);
                     }
                     Talk(cpuVoiceMessage, VoiceGender.Male, 2);
                 }
-                
-                if (avaliableMem <= 512)
-                {
-                    Talk(memVoiceMessage, VoiceGender.Male, 2);
-                }
                 #endregion
+                    
+                // Update Every Second
                 Thread.Sleep(1000);
             }
         }
+        
+        // Talk void so that we don't have to copy multiple lines of code for use in multiple cases.
         public static void Talk(string message, VoiceGender voiceGender, int rate)
         {
             SpeechSynthesizer synth = new SpeechSynthesizer();
